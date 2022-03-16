@@ -10,6 +10,11 @@ class ProviderError extends TruffleError {
       message = buildMessage(options);
     }
     super(message);
+
+    // important fields from RPC error responses, should be retained
+    // see: https://www.jsonrpc.org/specification#error_object
+    this.code = options?.underlyingError?.code;
+    this.data = options?.underlyingError?.data;
   }
 }
 
